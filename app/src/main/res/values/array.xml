@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pan_s">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>滿貫</item>
+        <item>跳満</item>
+        <item>倍滿</item>
+        <item>三倍滿</item>
+        <item>役滿</item>
+        <item>ダブル役滿</item>
+        <item>トリプル役滿</item>
+        <item>クワッドラッフル役滿</item>
+    </string-array>
+    <string-array name="boo_s">
+        <item>20</item>
+        <item>25</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
+        <item>110</item>
+        <item>120</item>
+    </string-array>
+
+</resources>

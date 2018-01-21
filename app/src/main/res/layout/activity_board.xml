@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/boardColor"
+    android:keepScreenOn="true"
+    tools:context="snacker.mahjongscoreboard.Board">
+
+    <TextView
+        android:id="@+id/northlight"
+        android:layout_width="130dp"
+        android:layout_height="20dp"
+        android:background="@color/oyalight"
+        android:rotation="90"
+        android:layout_alignBaseline="@+id/southlight"
+        android:layout_alignBottom="@+id/southlight"
+        android:layout_toEndOf="@+id/btn_extend"
+        android:layout_marginStart="23dp" />
+
+    <TextView
+        android:id="@+id/southlight"
+        android:layout_width="130dp"
+        android:layout_height="20dp"
+        android:background="@color/oyalight"
+        android:rotation="90"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/foul"
+        android:layout_marginEnd="21dp" />
+
+    <TextView
+        android:id="@+id/eastlight"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:background="@color/oyalight"
+        android:layout_below="@+id/status"
+        android:layout_alignStart="@+id/status"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:id="@+id/westlight"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:background="@color/oyalight"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/foul"
+        android:layout_alignStart="@+id/status" />
+
+    <Button
+        android:id="@+id/btn_west"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/btn_east"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:rotation="180"
+        android:text="西 - 25000(+00.0)"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_south"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignEnd="@+id/foul"
+        android:layout_alignTop="@+id/btn_north"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="26dp"
+        android:rotation="-90"
+        android:text="南 - 25000(+00.0)"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_north"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:rotation="90"
+        android:text="北 - 25000(+00.0)"
+        android:textSize="18sp"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/northlight"
+        android:layout_marginEnd="20dp" />
+
+    <Button
+        android:id="@+id/btn_east"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:text="東 - 25000(+00.0)"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/status"
+        android:layout_width="150dp"
+        android:layout_height="130dp"
+        android:background="@android:color/black"
+        android:text="東1局 0本場\n 供託金:0"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/foul"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_west"
+        android:layout_alignBottom="@+id/btn_west"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:background="@android:color/holo_red_light"
+        android:text="チョンボ"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_extend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btn_east"
+        android:layout_marginStart="17dp"
+        android:text="流局" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_east"
+        android:layout_alignBottom="@+id/btn_east"
+        android:layout_alignStart="@+id/foul"
+        android:text="Cancel"
+        android:visibility="visible" />
+</RelativeLayout>

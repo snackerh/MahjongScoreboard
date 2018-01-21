@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="snacker.mahjongscoreboard.MainActivity"
+    tools:layout_editor_absoluteY="73dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/gridLayout"
+        android:layout_centerVertical="true"
+        android:layout_column="0"
+        android:layout_row="2"
+        android:text="국수"
+        android:textSize="18sp" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="576dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="6dp">
+
+        <Button
+            android:id="@+id/btn_half"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:text="半章戰 開時"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="247dp" />
+
+        <Button
+            android:id="@+id/btn_quarter"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="1"
+            android:text="東風戰 開時" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="0"
+            android:text="일장전\n-시작점수:30000\n-반환점수:30000\n-우마:40/20"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_whole"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
+            android:layout_row="1"
+            android:text="一章戰 開時"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="247dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_column="1"
+            android:layout_row="0"
+            android:text="동풍전\n-시작점수:25000\n-반환점수:25000\n-우마:20/10"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:text="반장전\n-시작점수:30000\n-반환점수:30000\n-우마:30/15"
+            android:textSize="18sp" />
+
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시작점수"
+        android:textSize="18sp"
+        android:layout_below="@+id/roundText"
+        android:layout_alignStart="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="반환점수"
+        android:textSize="18sp"
+        android:layout_below="@+id/startText"
+        android:layout_alignStart="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/roundText"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView7"
+        android:layout_marginStart="25dp"
+        android:layout_toEndOf="@+id/textView8"
+        android:ems="10"
+        android:hint="8"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/startText"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/roundText"
+        android:layout_below="@+id/roundText"
+        android:ems="10"
+        android:hint="30000"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:id="@+id/returnText"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/startText"
+        android:layout_below="@+id/startText"
+        android:ems="10"
+        android:hint="30000"
+        android:inputType="numberSigned" />
+
+    <Button
+        android:id="@+id/btn_custom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/returnText"
+        android:layout_alignTop="@+id/roundText"
+        android:layout_marginStart="22dp"
+        android:layout_toEndOf="@+id/startText"
+        android:text="任意對局開始" />
+
+
+</RelativeLayout>
