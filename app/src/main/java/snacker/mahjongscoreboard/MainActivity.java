@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     if(ai < 1 || ai > 16){
                         err += "\n국수: 1부터 16사이의 숫자를 입력하여 주십시오.";
                     }
-                    if(bi < 0 || bi > 250000){
+                    if(bi < 1 || bi > 250000){
                         err += "\n시작점수: 1부터 250000사이의 숫자를 입력하여 주십시오.";
                     }
                     if(ci < bi){

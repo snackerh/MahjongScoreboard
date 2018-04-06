@@ -14,57 +14,53 @@
         android:layout_row="1"
         android:text="飜" />
 
-    <Spinner
-        android:id="@+id/pan"
-        android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView"
-        android:entries="@array/pan_s"
-        android:spinnerMode="dialog" />
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="38dp"
-        android:layout_toEndOf="@+id/pan"
+        android:layout_alignStart="@+id/boo"
         android:text="付" />
 
-    <Spinner
+    <NumberPicker
         android:id="@+id/boo"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_alignStart="@+id/textView4"
+        android:layout_height="100dp"
         android:layout_below="@+id/textView4"
-        android:entries="@array/boo_s" />
+        android:layout_marginStart="27dp"
+        android:layout_toEndOf="@+id/panp"
+        android:entries="@array/boo_s"
+        android:scrollIndicators="top"
+        android:scrollbars="vertical"
+        android:showDividers="end" />
 
     <Button
         android:id="@+id/btn_cancel2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn_ok"
-        android:layout_alignBottom="@+id/btn_ok"
         android:layout_alignEnd="@+id/boo"
         android:layout_alignStart="@+id/boo"
+        android:layout_alignTop="@+id/btn_ok"
         android:text="Cancel" />
 
     <Button
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/pan"
+        android:layout_alignEnd="@+id/panp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/pan"
-        android:layout_marginTop="18dp"
+        android:layout_below="@+id/panp"
+        android:layout_marginTop="19dp"
         android:text="OK" />
 
     <NumberPicker
         android:id="@+id/panp"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:layout_alignTop="@+id/boo"
-        android:layout_marginStart="22dp"
-        android:layout_toEndOf="@+id/boo" />
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:keepScreenOn="false"
+        android:scrollIndicators="top"
+        android:scrollbars="vertical"
+        android:showDividers="end" />
 </RelativeLayout>

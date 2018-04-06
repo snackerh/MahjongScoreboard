@@ -18,8 +18,7 @@ import android.widget.TextView;
 
 public class score extends Dialog {
 
-    public Spinner span;
-    public Spinner sboo;
+    public NumberPicker sboo;
     public Button ok;
     public Button cancel;
     public NumberPicker pan_p;
@@ -32,19 +31,19 @@ public class score extends Dialog {
         setTitle("HOO");
         setContentView(R.layout.score);
 
-        span = (Spinner) findViewById(R.id.pan);
-        sboo = (Spinner) findViewById(R.id.boo);
+        //span = (Spinner) findViewById(R.id.pan);
+        sboo = (NumberPicker) findViewById(R.id.boo);
         ok =(Button) findViewById(R.id.btn_ok);
         cancel = (Button) findViewById(R.id.btn_cancel2);
-        pan_p = (NumberPicker) findViewById(R.id.);
+        pan_p = (NumberPicker) findViewById(R.id.panp);
 
         ok.setOnClickListener(mLeftListener);
         cancel.setOnClickListener(mRightListener);
-        final String[] values= {"Red","Green", "Blue", "Yellow", "Magenta"};
+        /*final String[] values= {"1", "2","3","4","滿貫","跳満","倍滿","三倍滿","役滿","ダブル役滿","トリプル役滿","クワッドラッフル役滿"};
         pan_p.setMinValue(0);
         pan_p.setMaxValue(values.length-1);
         pan_p.setDisplayedValues(values);
-        pan_p.setWrapSelectorWheel(true);
+        pan_p.setWrapSelectorWheel(true);*/
     }
 
     Button.OnClickListener mLeftListener = new View.OnClickListener(){

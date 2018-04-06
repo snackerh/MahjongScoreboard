@@ -13,16 +13,21 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 public class Board extends AppCompatActivity {
     public int score[] = {0, 0, 0, 0};
-    final public String wind[] = {"東", "南", "西", "北"};
+    final public String winds[] = {"東", "南", "西", "北"};
+    final public String[] values= {"1", "2","3","4","滿貫","跳満","倍滿","三倍滿","役滿","ダブル役滿","トリプル役滿","クワッドラッフル役滿"};
+    final public String[] boovals = {"20","25","30","40","50","60","70","80"};
     public int diff[] = {0, 0, 0, 0};
     public int round = 0;
 
@@ -56,7 +61,24 @@ public class Board extends AppCompatActivity {
     int jackpot = 0;
     int oyajackpot = 0;
 
+    long pressedTime = 0;
+
+    Stack<String> snapshot = new Stack<String>();
+    String snap = "";
+
     public static Activity fa;
+
+    @Override
+    public void onBackPressed(){
+        int elapsedsec = (int) (System.currentTimeMillis() - pressedTime);
+        if(elapsedsec > 2000) {
+            Toast.makeText(Board.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_LONG).show();
+            pressedTime = System.currentTimeMillis();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +111,8 @@ public class Board extends AppCompatActivity {
             score[i] = initScore;
         }
 
+        pressedTime = System.currentTimeMillis();
+
         textUpdate();
 
         east.setOnClickListener(mClick);
@@ -105,10 +129,10 @@ public class Board extends AppCompatActivity {
         max = findMax(score);
         calculateDiff(max);
 
-        east.setText(wind[(16 - round) % 4] + " - " + score[0] + "(" + diff[0] + ")");
-        south.setText(wind[(17 - round) % 4] + " - " + score[1] + "(" + diff[1] + ")");
-        west.setText(wind[(18 - round) % 4] + " - " + score[2] + "(" + diff[2] + ")");
-        north.setText(wind[(19 - round) % 4] + " - " + score[3] + "(" + diff[3] + ")");
+        east.setText(winds[(16 - round) % 4] + " - " + score[0] + "(" + diff[0] + ")");
+        south.setText(winds[(17 - round) % 4] + " - " + score[1] + "(" + diff[1] + ")");
+        west.setText(winds[(18 - round) % 4] + " - " + score[2] + "(" + diff[2] + ")");
+        north.setText(winds[(19 - round) % 4] + " - " + score[3] + "(" + diff[3] + ")");
 
         eastlight.setBackgroundColor(Color.WHITE);
         southlight.setBackgroundColor(Color.WHITE);
@@ -357,8 +381,10 @@ public class Board extends AppCompatActivity {
                                 }
                                 break;
                         }
-                        if(!tenpai[round % 4]) round++;
+                        if(!tenpai[round % 4]) {round++;
+                            Toast.makeText(Board.this, "오야가 텐파이가 아니므로 다음 국으로 넘어갑니다.", Toast.LENGTH_LONG).show();}
                         extend++;
+
                         Arrays.fill(tenpai, false);
                         drawstatus = false;
                         textUpdate();
@@ -398,21 +424,34 @@ public class Board extends AppCompatActivity {
         final Dialog call = new Dialog(this);
 
         call.setContentView(dialoglayout);
-        Spinner span = (Spinner) call.findViewById(R.id.pan);
-        Spinner sboo = (Spinner) call.findViewById(R.id.boo);
+        //Spinner span = (Spinner) call.findViewById(R.id.pan);
+        //Spinner sboo = (Spinner) call.findViewById(R.id.boo);
+        NumberPicker pan_p = (NumberPicker) call.findViewById(R.id.panp);
+        NumberPicker sboo = (NumberPicker) call.findViewById(R.id.boo);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.pan_s, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.boo_s, android.R.layout.simple_spinner_item);
-        span.setAdapter(adapter);
-        sboo.setAdapter(adapter2);
+        //span.setAdapter(adapter);
+        //sboo.setAdapter(adapter2);
         Button ok = (Button) call.findViewById(R.id.btn_ok);
         Button cancel_dialog = (Button) call.findViewById(R.id.btn_cancel2);
+
+        pan_p.setMinValue(0);
+        pan_p.setMaxValue(values.length-1);
+        pan_p.setDisplayedValues(values);
+        pan_p.setWrapSelectorWheel(true);
+        sboo.setMinValue(0);
+        sboo.setMaxValue(boovals.length-1);
+        sboo.setDisplayedValues(boovals);
+        sboo.setWrapSelectorWheel(true);
+
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Spinner span = (Spinner) call.findViewById(R.id.pan);
-                Spinner sboo = (Spinner) call.findViewById(R.id.boo);
+                NumberPicker pan_p = (NumberPicker) call.findViewById(R.id.panp);
+                NumberPicker sboo = (NumberPicker) call.findViewById(R.id.boo);
 
-                switch (span.getSelectedItem().toString()) {
+                /*switch (pan_p.getValue()) {
                     case "1":
                         pan = 1;
                         break;
@@ -449,9 +488,9 @@ public class Board extends AppCompatActivity {
                     case "クワッドラッフル役滿":
                         pan = 12;
                         break;
-                }
-
-                boo = Integer.parseInt(sboo.getSelectedItem().toString());
+                }*/
+                pan = pan_p.getValue()+1;
+                boo = Integer.parseInt(boovals[sboo.getValue()]);
 
                 if (firstbtn == secondbtn) {
                     tsumo(firstbtn);
@@ -480,7 +519,6 @@ public class Board extends AppCompatActivity {
                     boo = 50;
                 }
                 jackpot = (int) ((Math.ceil((boo * Math.pow(2, pan+2) * 2) / 100)) * 100);
-                Toast.makeText(Board.this, String.valueOf(jackpot), Toast.LENGTH_SHORT).show();
                 if (jackpot >= 4000) {
                     jackpot = 4000;
                 }
@@ -502,6 +540,12 @@ public class Board extends AppCompatActivity {
                 jackpot = 48000 + (100 * extend);
             } else if (pan == 12) {
                 jackpot = 64000 + (100 * extend);
+            }
+            if(pan <= 4) {
+                Toast.makeText(Board.this, "오야 " + values[pan - 1] + "판 " + boo + "부, " + jackpot + " 올", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(Board.this, "오야 " + values[pan - 1] + ", " + jackpot + " 올", Toast.LENGTH_LONG).show();
             }
         } else {
             if (pan >= 1 && pan <= 4) {
@@ -542,7 +586,16 @@ public class Board extends AppCompatActivity {
                 jackpot = 32000 + (100 * extend);
                 oyajackpot = 64000 + (100 * extend);
             }
+            if(pan <= 4) {
+                Toast.makeText(Board.this, winds[(16 - round+wind) % 4] + "가 " + values[pan - 1] + "판 " + boo + "부, " +  oyajackpot +"/"+ jackpot, Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(Board.this, winds[(16 - round+wind) % 4] + "가 " + values[pan - 1] + ", " + oyajackpot +"/"+ jackpot, Toast.LENGTH_LONG).show();
+            }
         }
+
+        snap = (round + " " + extend + " " + vault + " " + score[0] + " " + score[1] + " "+ score[2] + " "+ score[3] + " ");
+        snapshot.push(snap);
 
         for(int i = 0; i < 4; i++){
             score[wind] += vault;
@@ -560,6 +613,7 @@ public class Board extends AppCompatActivity {
                     score[wind] += jackpot;
                 }
             }
+
         }
 
         jackpot = 0;
@@ -579,6 +633,9 @@ public class Board extends AppCompatActivity {
     }
 
     private void ron(int wind, int loser) {
+        snap = (round + " " + extend + " " + vault + " ron " + wind + " " + loser + " " + pan + " " + boo + " ");
+        snapshot.push(snap);
+
         if (wind == round % 4) {
             if (pan >= 1 && pan <= 4) {
                 if (boo == 25) {
@@ -586,7 +643,6 @@ public class Board extends AppCompatActivity {
                     boo = 50;
                 }
                 jackpot = (int) ((Math.ceil((boo * Math.pow(2, pan+2) * 6) / 100)) * 100);
-                Toast.makeText(Board.this, String.valueOf(jackpot), Toast.LENGTH_SHORT).show();
                 if (jackpot >= 12000) {
                     jackpot = 12000;
                 }
@@ -609,6 +665,12 @@ public class Board extends AppCompatActivity {
             } else if (pan == 12) {
                 jackpot = 192000 + (300 * extend);
             }
+            if(pan <= 4) {
+                Toast.makeText(Board.this, "오야 " + values[pan - 1] + "판 " + boo + "부, " + jackpot, Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(Board.this, "오야 " + values[pan - 1] + ", " + jackpot, Toast.LENGTH_LONG).show();
+            }
         } else {
             if (pan >= 1 && pan <= 4) {
                 if (boo == 25) {
@@ -616,7 +678,6 @@ public class Board extends AppCompatActivity {
                     boo = 50;
                 }
                 jackpot = (int) ((Math.ceil((boo * Math.pow(2, pan+2) * 4) / 100)) * 100);
-                Toast.makeText(Board.this, String.valueOf(jackpot), Toast.LENGTH_SHORT).show();
                 if (jackpot >= 8000) {
                     jackpot = 8000;
                 }
@@ -638,6 +699,12 @@ public class Board extends AppCompatActivity {
                 jackpot = 96000 + (300 * extend);
             } else if (pan == 12) {
                 jackpot = 128000 + (300 * extend);
+            }
+            if(pan <= 4) {
+                Toast.makeText(Board.this, winds[(16 - round+wind) % 4] + "가 " + values[pan - 1] + "판 " + boo + "부, " + jackpot, Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(Board.this, winds[(16 - round+wind) % 4] + "가 " + values[pan - 1] + ", " + jackpot, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -674,10 +741,7 @@ public class Board extends AppCompatActivity {
                 vault -= 1000;
                 score[i] += 1000;
             }
-            if(i==wind){
-                continue;
-            }
-            else{
+            if(i!=wind){
                 if(i == round % 4){
                     score[wind] -= oyajackpot;
                     score[i] += oyajackpot;
